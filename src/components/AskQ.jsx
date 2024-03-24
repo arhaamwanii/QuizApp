@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
 import initialQuestions from '../questions';
 import { Button } from "@/components/ui/button"
+import { Progress } from "@/components/ui/progress"
+
+let timer = 30000 ;
 
 export const AskQ = () => {
   const [currentQuestion , setCurrentQuestion] = useState(0);
   const [formData , setFormData] = useState(initialQuestions)
+  const [timeRemaining , setTimeReaining] = useState(timer)
 
   const handleAnswer = (index) => {
     const updatedQuestions = formData.map((question, i) => {
@@ -23,7 +27,17 @@ export const AskQ = () => {
 
     // Move to the next question
     setCurrentQuestion((prev) => prev + 1);
+
+    handleTime()
   };
+
+
+  function handleTime(){
+    setTimeout(() => handleAnswer(4) , 30000 )
+    setInterval(() =>{
+      setTimeReaining((prev) => prev - 10 )
+    } , 10 )
+  }
 
   if (currentQuestion >= initialQuestions.length) {
     return (
@@ -38,9 +52,12 @@ export const AskQ = () => {
 
   return (
     <div>
+      <progress max={timer} value={timeRemaining}/>
+
       <h1>{question.text}</h1>
       {question.answers.map((option, index) => (
-        <Button key={index} onClick={() => handleAnswer(index)}>{option}</Button>
+        <Button key={index} onClick={() => handleAnswer(index)}>{option}</Button>,
+        handleTime()
       ))}
     </div>
   );
@@ -69,6 +86,8 @@ export const AskQ = () => {
 //   )
 
 // }
+
+// side effect and use effect hook usage in this app
 
 // const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
 //   const [userAnswers, setUserAnswers] = useState({});

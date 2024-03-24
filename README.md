@@ -20,4 +20,8 @@ STEPS
     - questions are beign showed - 
         - we need to know for which object the button was clicked
         - we need to know the index of the option we had clicked
-    - now we also have which button 
+    - now we bring in time
+        - user dosen't click on a button for 30 secs the button next question will be showen 
+        - inside of the array there will option 4 will be stored -- selectedIndex = 4
+    - loading animation for the time
+        - setIntr 
