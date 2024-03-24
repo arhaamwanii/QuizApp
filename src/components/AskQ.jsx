@@ -3,17 +3,16 @@ import initialQuestions from '../questions';
 import { Button } from "@/components/ui/button"
 import { Progress } from "@/components/ui/progress"
 
-let timer = 30000 ;
+let timer = 30000;
 
 export const AskQ = () => {
-  const [currentQuestion , setCurrentQuestion] = useState(0);
-  const [formData , setFormData] = useState(initialQuestions)
-  const [timeRemaining , setTimeReaining] = useState(timer)
+  const [currentQuestion, setCurrentQuestion] = useState(0);
+  const [formData, setFormData] = useState(initialQuestions);
+  const [timeRemaining, setTimeRemaining] = useState(timer);
 
   const handleAnswer = (index) => {
     const updatedQuestions = formData.map((question, i) => {
       if (i === currentQuestion) {
-        // Update the selected index for the current question
         return {
           ...question,
           selectedIndex: index
@@ -22,21 +21,20 @@ export const AskQ = () => {
       return question;
     });
 
-    // Update the state with the modified array
     setFormData(updatedQuestions);
-
-    // Move to the next question
     setCurrentQuestion((prev) => prev + 1);
-
-    handleTime()
+    handleTime();
   };
 
-
-  function handleTime(){
-    setTimeout(() => handleAnswer(4) , 30000 )
-    setInterval(() =>{
-      setTimeReaining((prev) => prev - 10 )
-    } , 10 )
+  function handleTime() {
+    setTimeout(() => handleAnswer(4), timer);
+    const intervalId = setInterval(() => {
+      setTimeRemaining((prev) => prev - 10);
+      if (timeRemaining <= 0) {
+        clearInterval(intervalId);
+        handleAnswer(4);
+      }
+    }, 10);
   }
 
   if (currentQuestion >= initialQuestions.length) {
@@ -52,18 +50,19 @@ export const AskQ = () => {
 
   return (
     <div>
-      <progress max={timer} value={timeRemaining}/>
-
+      <progress max={timer} value={timeRemaining} />
+          {/* so here is this case, the max value is set to be 30000 or time reamining --  */}
+          {/* in case of the state which is changing the progress of the state bar */}
       <h1>{question.text}</h1>
       {question.answers.map((option, index) => (
-        <Button key={index} onClick={() => handleAnswer(index)}>{option}</Button>,
-        handleTime()
+        <Button key={index} onClick={() => handleAnswer(index)}>{option}</Button>
       ))}
     </div>
   );
 };
 
-
+// on the click of the button the handle click function is being called
+//  we have to get useEffect going in this app that is what i want 
 
 
 // import React, { useState } from 'react'

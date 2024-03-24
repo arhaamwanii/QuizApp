@@ -1,3 +1,6 @@
+WHAT WE ARE TRYING TO BUILD
+    - you have question are being asked to you with an timer going on once you are done, based on how you performed you will be rated
+
 BUUILING STEPS 
     QUIZ
     - single object which contains all of the stuff,   
@@ -25,3 +28,5 @@ STEPS
         - inside of the array there will option 4 will be stored -- selectedIndex = 4
     - loading animation for the time
         - setIntr 
+
+HE
